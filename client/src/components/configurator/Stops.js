@@ -8,6 +8,9 @@ export default class Stops extends React.Component {
         selectedStop: PropTypes.number.isRequired,
     }
 
+    /**
+     * Convert RGB to a usable css format
+     */
     convertColors(colors) {
         return `rgba(${colors.red}, ${colors.green}, ${colors.blue}, 1)`;
     }

@@ -1,6 +1,9 @@
 import ColorCanvas from 'Components/configurator/ColorCanvas';
 
 export default class ColorPicker extends ColorCanvas {
+    /**
+     * draw a color picker that blends a base color with white and black
+     */
     draw() {
         const context = this.getContext();
         const width = this.getWidth();

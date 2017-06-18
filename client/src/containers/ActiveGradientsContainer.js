@@ -14,6 +14,12 @@ import socket from '../socket';
     dispatch,
 }))
 export default class ActiveGradientsContainer extends React.Component {
+    /**
+     * Add listeners for the various socket events so that we can update
+     * the list of active gradients in real time.  We are using socket.io here.
+     * If websockets are not available it will fallback to long polling or
+     * polling techniques.
+     */
     componentDidMount() {
         socket.emit('join');
 
@@ -39,6 +45,9 @@ export default class ActiveGradientsContainer extends React.Component {
         });
     }
 
+    /**
+     * When the component first mounts load the full list of active gradients
+     */
     initGradients(data) {
         const { actions, dispatch } = this.props;
         const previews = Object.values(data).filter(gradient => gradient.gradientId !== this.gradientId);
@@ -46,39 +55,29 @@ export default class ActiveGradientsContainer extends React.Component {
         dispatch(actions.initGradients(previews));
     }
 
+    /**
+     * Add a new gradient to the list of active gradients
+     */
     addGradient(data) {
         const { actions, dispatch } = this.props;
         dispatch(actions.addGradient(data));
     }
 
+    /**
+     * Upadte a particular gradient
+     */
     updateGradient(data) {
         const { actions, dispatch } = this.props;
         dispatch(actions.updateGradient(data));
     }
 
+    /**
+     * Remove a gradient from the list of active gradients
+     */
     deleteGradient(data) {
         const { actions, dispatch } = this.props;
         dispatch(actions.deleteGradient(data.gradientId));
     }
-
-            /*
-            const socket = io.connect('http://localhost:8081');
-            // emit a join message when the connection is successful
-            socket.on('connect', () => {
-                socket.emit('join', 'Successfully connected to server');
-            });
-            // alert a message when reieved from the server
-            // we can do anything we want in this listener
-            socket.on('message', (data) => {
-                alert(data);
-            });
-            // sumbit the form value as a message to the server
-            function doFormSubmit(form) {
-                const message = form.elements.message.value;
-                socket.emit('message', message);
-                return false;
-            }
-            */
 
 
     render() {

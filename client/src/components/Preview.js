@@ -11,10 +11,17 @@ export default class Preview extends React.Component {
         }).isRequired,
     }
 
+    /**
+     * Converts an RGB value to it's hex equivalent
+     */
     rgbToHex(red, green, blue) {
         return `#${((1 << 24) + (red << 16) + (green << 8) + blue).toString(16).slice(1)}`;
     }
 
+    /**
+     * Converts the values of the directions that are listed in the select box to
+     * thier valid css equivalents
+     */
     getRealDirection(gradientDirection, type) {
         const legacyDirections = {
             center: 'center',
@@ -56,6 +63,9 @@ export default class Preview extends React.Component {
         return { legacyDirection, standardDirection };
     }
 
+    /**
+     * Add any required browser prefixes to our css strings
+     */
     getPrefix(browserType) {
         return {
             legacy: '',
@@ -66,6 +76,9 @@ export default class Preview extends React.Component {
         }[browserType];
     }
 
+    /**
+     * Adds a comment representing what browsers the given css is valid for
+     */
     getComment(browserType) {
         return {
             legacy: '/*Legacy*/',
@@ -76,6 +89,9 @@ export default class Preview extends React.Component {
         }[browserType];
     }
 
+    /**
+     * Builds a css gradient string for a given browser type
+     */
     getCSS(browserType, gradientType, direction, hexStart, hexEnd) {
         const comment = this.getComment(browserType);
 
@@ -85,6 +101,9 @@ export default class Preview extends React.Component {
         return `${this.getPrefix(browserType)}${gradientType}-gradient(${direction}, ${hexStart}, ${hexEnd}); ${comment}`;
     }
 
+    /**
+     * Builds an object of gradients keyed by browser type
+     */
     buildStyle() {
         const { stops, gradientType, gradientDirection } = this.props;
         const [stop0, stop1] = stops;
@@ -107,6 +126,9 @@ export default class Preview extends React.Component {
         return 'standard';
     }
 
+    /**
+     * Prints the css out for copying by the user
+     */
     printCSS(style) {
         return Object.keys(style).map(k => <div key={k} className="css-line">background: {style[k]}</div>);
     }

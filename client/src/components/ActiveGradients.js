@@ -8,6 +8,9 @@ export default class ActiveGradients extends React.Component {
         gradients: PropTypes.arrayOf(PropTypes.object).isRequired,
     };
 
+    /**
+     * Maps a gradient object to a preview component
+     */
     renderPreviews() {
         const { gradients } = this.props;
 

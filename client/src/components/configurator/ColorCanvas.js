@@ -13,14 +13,25 @@ export default class ColorPicker extends React.Component {
         className: '',
     }
 
+    /**
+     * When the component mounts we draw on the canvas so that the user has
+     * something to choose right away.
+     */
     componentDidMount() {
         this.draw();
     }
 
+    /**
+     * Every time one of the props on this component is updated, we have to
+     * redraw the canvas to pick up the changes.
+     */
     componentDidUpdate() {
         this.reDraw();
     }
 
+    /**
+     * Relay a click event on the canvas
+     */
     onClick(e) {
         const offsetX = e.nativeEvent.offsetX;
         const offsetY = e.nativeEvent.offsetY;
@@ -29,6 +40,9 @@ export default class ColorPicker extends React.Component {
         this.props.onColorSelected(imageData.slice(0, 3));
     }
 
+    /**
+     * Return the canvas context
+     */
     getContext() {
         return this.canvas.getContext('2d');
     }
@@ -41,6 +55,9 @@ export default class ColorPicker extends React.Component {
         return this.canvas.height;
     }
 
+    /**
+     * Clears the canvas completely and does a full draw
+     */
     reDraw() {
         const canvas = this.canvas;
 
@@ -48,6 +65,10 @@ export default class ColorPicker extends React.Component {
         this.draw();
     }
 
+    /**
+     * The draw method is unique for the extending component, so this method
+     * is only implemented there
+     */
     draw() {}
 
     render() {

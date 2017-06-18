@@ -11,6 +11,9 @@ export default class DirectionForm extends React.Component {
         hex: PropTypes.string.isRequired,
     }
 
+    /**
+     * When the hex value changes, try to convert the hex to a valid rgb value
+     */
     onHexChange(e) {
         const { onHexChange } = this.props;
         const rgb = this.hexToRgb(e.currentTarget.value);
@@ -18,6 +21,10 @@ export default class DirectionForm extends React.Component {
         onHexChange(rgb || e);
     }
 
+    /**
+     * Return the options for the direction select field that are valid
+     * for all gradient types
+     */
     getDefaultOptions() {
         return {
             top: 'Top',
@@ -31,6 +38,10 @@ export default class DirectionForm extends React.Component {
         };
     }
 
+    /**
+     * Convert a hex value to it's rgb equivalent.  For simplicity, we are
+     * not allowing hex triplets.
+     */
     hexToRgb(hex) {
         const result = hex.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
         return result ? [
@@ -40,6 +51,10 @@ export default class DirectionForm extends React.Component {
         ] : null;
     }
 
+    /**
+     * Render the direction options, if we select radial, we need to add another
+     * option for center to the dropdown
+     */
     renderDirectionOptions() {
         const defaultOptions = this.getDefaultOptions();
         const options = Object.keys(defaultOptions).map(o => <option value={o} key={o}>{defaultOptions[o]}</option>);

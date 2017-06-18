@@ -1,7 +1,7 @@
 {
-  "name": "atlas",
+  "name": "css-gradient-generator",
   "version": "1.0.0",
-  "description": "Mount Sinai coding challenge (Atlas)",
+  "description": "A css gradient generator",
   "main": "bin/www",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

@@ -1,6 +1,10 @@
 import ColorCanvas from 'Components/configurator/ColorCanvas';
 
-export default class ColorPicker extends ColorCanvas {
+export default class ColorSlider extends ColorCanvas {
+    /**
+     * draw a color picker that give a full visible color spectrum
+     * clicking on the slider will update the color picker's base color
+     */
     draw() {
         const context = this.getContext();
         const width = this.getWidth();
