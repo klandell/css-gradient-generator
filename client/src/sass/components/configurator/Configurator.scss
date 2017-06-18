@@ -1,0 +1,101 @@
+.configurator {
+    background: rgba(239, 239, 239, 0.3);
+    border: 1px solid #CECECE;
+    border-radius: 5px;
+    padding: 10px;
+    display: inline-block;
+    margin-right: 5px;
+
+    .color-slider, .color-picker, .color-preview {
+        border-radius: 5px;
+    }
+
+    .color-slider, .color-picker, .stops > div {
+        margin-right: 5px;
+    }
+
+    .color-slider, .color-picker {
+        cursor: crosshair;
+    }
+
+    .color-inputs {
+        display: inline-block;
+        vertical-align: top;
+
+        label {
+            display: inline-block;
+            width: 15px;
+        }
+
+        .hex-wrapper {
+            margin-top: 10px;
+
+            label {
+                width: 70px;
+            }
+
+            input {
+                width: 129px;
+            }
+        }
+    }
+
+    input, select {
+        outline: none;
+        font-size: 14px;
+        padding: 8px;
+        width: 67px;
+        margin-right: 5px;
+        border: 1px solid #CECECE;
+        margin: 1px;
+    }
+
+    select {
+        background-color: #FFF;
+        -webkit-appearance: none;
+        -webkit-border-radius: 0px;
+        background-position: 100% 50%;
+        background-repeat: no-repeat;
+        width: 147px !important;
+    }
+
+    form {
+        display: inline-block;
+    }
+
+    .color-form {
+        margin-right: 10px;
+    }
+
+    .direction-form {
+        label {
+            width: 70px;
+        }
+
+        select {
+            width: 129px;
+        }
+    }
+
+    .stops {
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 10px;
+
+        > div {
+            width: 102px;
+            display: inline-block;
+        }
+
+        .color-preview {
+            height: 25px;
+            width: 100%;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .stop-selected {
+            border-color: #000;
+        }
+    }
+}

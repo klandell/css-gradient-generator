@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# dumb workaround, we don't want to keep our build
+# files under version control, but heroku uses .gitignore
+# to determine which files to upload
+
+# build the app
+npm run build:prod
+
+# create a temporary branch for deployment
+git checkout -b _heroku
+
+# remove our build files from .gitignore
+sed -i '' -e 's/bundle\.js//g' .gitignore
+sed -i '' -e 's/manifest\.js//g' .gitignore
+sed -i '' -e 's/vendor\.js//g' .gitignore
+sed -i '' -e 's/sw\.js//g' .gitignore
+sed -i '' -e 's/appcache//g' .gitignore
+
+# commit the build to our temp branch
+git add .
+git commit -m "heroku build"
+
+# deploy to heroku
+git push -f heroku _heroku:master
+
+# reset/cleanup
+git checkout master
+git branch -D _heroku

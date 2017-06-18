@@ -1,0 +1,31 @@
+{
+  "name": "atlas",
+  "version": "1.0.0",
+  "description": "Mount Sinai coding challenge (Atlas)",
+  "main": "bin/www",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create": "npm install && cd client && npm install",
+    "build": "cd client && npm run build",
+    "build:watch": "cd client && npm run build:watch",
+    "build:prod": "cd client && npm run build:prod",
+    "start": "node ./bin/www",
+    "start:prod": "NODE_ENV=production npm start",
+    "deploy": "bash ./deploy"
+  },
+  "author": "Kyle Landell <kyle.landell@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "compression": "^1.6.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3",
+    "morgan": "^1.8.1",
+    "socket.io": "^2.0.3",
+    "yes-https": "0.0.4"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": "~7.8.0"
+  }
+}

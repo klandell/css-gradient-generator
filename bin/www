@@ -1,0 +1,93 @@
+#!/usr/bin/env node
+
+// require necessary modules
+const app = require('../app');
+const http = require('http');
+
+// create the http server
+const server = http.createServer(app);
+
+/**
+ * Normalizes the port into a number, string, or false
+ * @param  {Integer|String} val - The port to normalize
+ * @return {Integer|String|Boolean}
+ */
+const normalizePort = (val) => {
+    let port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        port = val;
+    } else if (port <= 0) {
+        port = false;
+    }
+    return port;
+};
+
+// get the port from the environment variable
+const port = normalizePort(process.env.PORT);
+app.set('port', port);
+server.listen(port);
+
+/**
+ * Event listener for HTTP server "error" event.
+ * Give a user friendly message for common errors,
+ * otherwise throws the error normally.
+ * @param {Error} err - A server error
+ */
+const onError = (err) => {
+    const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
+
+    if (err.syscall === 'listen') {
+        if (err.code === 'EACCES') {
+            console.error(`${bind} requires elevated privileges`);
+            process.exit(1);
+        } else if (err.code === 'EADDRINUSE') {
+            console.error(`${bind} is already in use`);
+            process.exit(1);
+        }
+    }
+    throw err;
+};
+
+// set the error handler
+server.on('error', onError);
+
+/**
+ * Event listener for HTTP server "listening" event.
+ * Logs the server's port to the console
+ */
+const onListening = () => {
+    const addr = server.address();
+    const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
+    console.log(`Listening on ${bind}`);
+};
+
+// set the server listening handler
+server.on('listening', onListening);
+
+
+// create a really simple websocket to broadcast
+// to all other connected clients
+const io = require('socket.io')(server);
+
+const gradients = {};
+
+io.on('connection', (socket) => {
+    socket.on('join', () => {
+        socket.emit('join', gradients);
+    });
+
+    socket.on('add', (data) => {
+        gradients[data.gradientId] = data;
+        socket.broadcast.emit('add', data);
+        socket.emit('gradientId', data.gradientId);
+    });
+    socket.on('update', (data) => {
+        gradients[data.gradientId] = data;
+        socket.broadcast.emit('update', data);
+    });
+    socket.on('delete', (data) => {
+        delete gradients[data.gradientId];
+        socket.broadcast.emit('delete', data);
+    });
+});
