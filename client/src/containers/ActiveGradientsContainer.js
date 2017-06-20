@@ -21,14 +21,8 @@ export default class ActiveGradientsContainer extends React.Component {
      * polling techniques.
      */
     componentDidMount() {
-        socket.emit('join');
-
         socket.on('join', (data) => {
             this.initGradients(data);
-        });
-
-        socket.on('gradientId', (data) => {
-            this.gradientId = data;
         });
 
         // Have unique events for add/update/delete
@@ -40,6 +34,7 @@ export default class ActiveGradientsContainer extends React.Component {
         socket.on('update', (data) => {
             this.updateGradient(data);
         });
+
         socket.on('delete', (data) => {
             this.deleteGradient(data);
         });
@@ -50,9 +45,9 @@ export default class ActiveGradientsContainer extends React.Component {
      */
     initGradients(data) {
         const { actions, dispatch } = this.props;
-        const previews = Object.values(data).filter(gradient => gradient.gradientId !== this.gradientId);
+        const gradients = Object.values(data);
 
-        dispatch(actions.initGradients(previews));
+        dispatch(actions.initGradients(gradients));
     }
 
     /**

@@ -70,24 +70,42 @@ server.on('listening', onListening);
 // to all other connected clients
 const io = require('socket.io')(server);
 
+// keep a hash table of currently active gradients
 const gradients = {};
 
 io.on('connection', (socket) => {
-    socket.on('join', () => {
-        socket.emit('join', gradients);
+    // send all currently active gradients to the joining party
+    (() => {
+        const copy = Object.assign({}, gradients);
+        delete copy[socket.id];
+        socket.emit('join', copy);
+    })();
+
+    // add a gradient to the hash table
+    socket.on('add', (data) => {
+        const gradient = Object.assign({}, data, {
+            gradientId: socket.id,
+        });
+
+        gradients[socket.id] = gradient;
+        socket.broadcast.emit('add', gradient);
     });
 
-    socket.on('add', (data) => {
-        gradients[data.gradientId] = data;
-        socket.broadcast.emit('add', data);
-        socket.emit('gradientId', data.gradientId);
-    });
+    // update a gradient in the hash table
     socket.on('update', (data) => {
-        gradients[data.gradientId] = data;
-        socket.broadcast.emit('update', data);
+        const gradient = Object.assign(gradients[socket.id], data);
+        socket.broadcast.emit('update', gradient);
     });
-    socket.on('delete', (data) => {
-        delete gradients[data.gradientId];
-        socket.broadcast.emit('delete', data);
+
+    // cleanup after a socket disconnects
+    socket.on('disconnect', () => {
+        const socketId = socket.id;
+        const gradient = Object.assign({}, gradients[socketId]);
+
+        // broadcast the delete event to interested parties
+        socket.broadcast.emit('delete', gradient);
+
+        // cleanup our hash table
+        delete gradients[socketId];
     });
 });

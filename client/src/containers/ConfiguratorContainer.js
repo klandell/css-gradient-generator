@@ -11,7 +11,9 @@ import {
 import Configurator from 'Components/configurator/Configurator';
 import socket from '../socket';
 
-@connect(state => state, dispatch => ({
+@connect(state => ({
+    configurator: state.configurator,
+}), dispatch => ({
     actions: {
         updateSliderColor,
         updatePickerColor,
@@ -27,13 +29,7 @@ export default class ConfiguratorContainer extends React.Component {
      * Add our gradient to the master list
      */
     componentDidMount() {
-        this.gradientId = `gradient-${new Date().valueOf()}`;
         this.broadcastGradient('add');
-
-        // remove the gradient on refresh
-        window.onbeforeunload = () => {
-            this.broadcastGradient('delete');
-        };
     }
 
     /**
@@ -42,14 +38,6 @@ export default class ConfiguratorContainer extends React.Component {
      */
     componentDidUpdate() {
         this.broadcastGradient('update');
-    }
-
-    /**
-     * This emits a delete event on our socket.  It will delete our current
-     * gradient from the master list on the server.
-     */
-    componentWillUnmount() {
-        this.broadcastGradient('delete');
     }
 
     /**
@@ -130,7 +118,6 @@ export default class ConfiguratorContainer extends React.Component {
         const { configurator } = this.props;
         const { stops, gradientDirection, gradientType } = configurator;
         const data = Object.assign({}, {
-            gradientId: this.gradientId,
             stops,
             gradientDirection,
             gradientType,
