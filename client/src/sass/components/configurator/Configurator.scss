@@ -4,14 +4,18 @@
     border-radius: 5px;
     padding: 10px;
     display: inline-block;
-    margin-right: 5px;
+    margin-right: 10px;
 
     .color-slider, .color-picker, .color-preview {
         border-radius: 5px;
     }
 
-    .color-slider, .color-picker, .stops > div {
+    .color-slider, .stops > div {
         margin-right: 5px;
+    }
+
+    .color-picker {
+        margin-right: 10px;
     }
 
     .color-slider, .color-picker {
@@ -31,20 +35,19 @@
             margin-top: 10px;
 
             label {
-                width: 70px;
+                width: 56px;
             }
 
             input {
-                width: 129px;
+                width: 77px;
             }
         }
     }
 
     input, select {
         outline: none;
-        font-size: 14px;
         padding: 8px;
-        width: 67px;
+        width: 23px;
         margin-right: 5px;
         border: 1px solid #CECECE;
         margin: 1px;
@@ -56,7 +59,13 @@
         -webkit-border-radius: 0px;
         background-position: 100% 50%;
         background-repeat: no-repeat;
-        width: 147px !important;
+        width: 95px !important;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
     }
 
     form {
@@ -69,11 +78,7 @@
 
     .direction-form {
         label {
-            width: 70px;
-        }
-
-        select {
-            width: 129px;
+            width: 56px;
         }
     }
 

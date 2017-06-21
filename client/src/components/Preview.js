@@ -77,28 +77,13 @@ export default class Preview extends React.Component {
     }
 
     /**
-     * Adds a comment representing what browsers the given css is valid for
-     */
-    getComment(browserType) {
-        return {
-            legacy: '/*Legacy*/',
-            webkit: '/*Safari 5.1-6*/',
-            opera: '/*Opera 11.1-12*/',
-            mozilla: '/*Fx 3.6-15*/',
-            standard: '/*Standard*/',
-        }[browserType];
-    }
-
-    /**
      * Builds a css gradient string for a given browser type
      */
     getCSS(browserType, gradientType, direction, hexStart, hexEnd) {
-        const comment = this.getComment(browserType);
-
         if (browserType === 'legacy') {
-            return `${hexStart}; ${comment}`;
+            return `${hexStart};`;
         }
-        return `${this.getPrefix(browserType)}${gradientType}-gradient(${direction}, ${hexStart}, ${hexEnd}); ${comment}`;
+        return `${this.getPrefix(browserType)}${gradientType}-gradient(${direction}, ${hexStart}, ${hexEnd});`;
     }
 
     /**

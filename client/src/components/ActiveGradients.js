@@ -28,7 +28,6 @@ export default class ActiveGradients extends React.Component {
         const previews = this.renderPreviews();
         return (
             <div className="active-gradients">
-                <h1>Active Gradients</h1>
                 {previews}
             </div>
         );

@@ -12,6 +12,29 @@ export default class DirectionForm extends React.Component {
     }
 
     /**
+     * Determines if the keyed character is a valid hex value
+     */
+    onHexKeyDown(e) {
+        const keyCode = e.keyCode;
+        const isShift = e.shiftKey;
+
+        // allow 0-9, a-f, A-F, backspace, and #
+        if (
+            (!isShift && (keyCode > 47 && keyCode < 58)) ||
+            (keyCode > 64 && keyCode < 71) ||
+            keyCode === 8 ||
+            (isShift && keyCode === 51)
+        ) {
+            return true;
+        }
+
+        // invalid key, kill the event every way we can
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    /**
      * When the hex value changes, try to convert the hex to a valid rgb value
      */
     onHexChange(e) {
@@ -73,12 +96,19 @@ export default class DirectionForm extends React.Component {
             <form className="direction-form">
                 <div className="hex-wrapper">
                     <label htmlFor="hex">Hex</label>
-                    <input type="text" name="hex" value={hex} onChange={e => this.onHexChange(e)} maxLength="7" />
+                    <input
+                        type="text"
+                        name="hex"
+                        value={hex}
+                        onChange={e => this.onHexChange(e)}
+                        maxLength="7"
+                        onKeyDown={e => this.onHexKeyDown(e)}
+                    />
                 </div>
                 <div>
                     <label htmlFor="style">Style</label>
                     <select name="style" value={gradientType} onChange={onGradientTypeSelect}>
-                        <option value="linear">Linear</option>
+                        <option className="red" value="linear">Linear</option>
                         <option value="radial">Radial</option>
                     </select>
                 </div>

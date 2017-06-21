@@ -1,12 +1,16 @@
 .layout {
     h1 {
-        font-size: 20px;
-        margin: 10px;
+        font-size: 16px;
+        padding: 14px 16px;
         text-transform: uppercase;
+        background-color: #800000;
+        color: #FFF;
+        margin: 0;
     }
 
     .configurator-wrapper {
         margin: auto;
         width: 1065px;
+        padding: 20px;
     }
 }

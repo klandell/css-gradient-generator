@@ -16,15 +16,15 @@ export default class RGBForm extends React.Component {
             <form className="color-form">
                 <div>
                     <label htmlFor="red">R</label>
-                    <input type="number" name="red" value={red} onChange={onChange} />
+                    <input type="number" name="red" value={red} onChange={onChange} min="0" max="255" />
                 </div>
                 <div>
                     <label htmlFor="green">G</label>
-                    <input type="number" name="green" value={green} onChange={onChange} />
+                    <input type="number" name="green" value={green} onChange={onChange} min="0" max="255" />
                 </div>
                 <div>
                     <label htmlFor="blue">B</label>
-                    <input type="number" name="blue" value={blue} onChange={onChange} />
+                    <input type="number" name="blue" value={blue} onChange={onChange} min="0" max="255" />
                 </div>
             </form>
         );

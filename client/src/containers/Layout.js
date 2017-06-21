@@ -13,6 +13,7 @@ export default class Layout extends React.Component {
                     <ConfiguratorContainer />
                     <PreviewContainer />
                 </div>
+                <h1>Active Gradients</h1>
                 <ActiveGradientsContainer />
             </div>
         );
