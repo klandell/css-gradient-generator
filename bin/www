@@ -93,7 +93,7 @@ io.on('connection', (socket) => {
 
     // update a gradient in the hash table
     socket.on('update', (data) => {
-        const gradient = Object.assign(gradients[socket.id], data);
+        const gradient = Object.assign(gradients[socket.id] || {}, data);
         socket.broadcast.emit('update', gradient);
     });
 
