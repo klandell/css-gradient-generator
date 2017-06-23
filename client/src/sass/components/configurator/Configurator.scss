@@ -57,15 +57,23 @@
         background-color: #FFF;
         -webkit-appearance: none;
         -webkit-border-radius: 0px;
+        -moz-appearance: none;
+        appearance: none;
         background-position: 100% 50%;
         background-repeat: no-repeat;
         width: 95px !important;
+        color: rgba(0,0,0,0);
+        text-shadow: 0 0 0 #000;
     }
 
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {
         -webkit-appearance: none;
         margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance:textfield;
     }
 
     form {
